@@ -19,10 +19,22 @@
 +(STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSArray *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
     
     if (uid) {
+        
         STSession *session = [[STSession alloc] init];
+        session.status = @"initialization";
         session.uid = uid;
         session.startSettings = settings;
         session.authDelegate = authDelegate;
+
+        [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
+        
+        NSString *dataModelName = [settings valueForKey:@"dataModelName"];
+        
+        if (!dataModelName) {
+            dataModelName = @"STDataModel";
+        }
+
+        session.document = [STDocument documentWithUID:session.uid dataModelName:dataModelName prefix:prefix];
 //
 //        id locationTracker = [controllers objectForKey:@"locationTracker"];
 //        if ([locationTracker isKindOfClass:[STTracker class]]) {
@@ -51,24 +63,42 @@
 //            session.syncer = [[STSyncer alloc] init];
 //        }
 //        
-//        [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
-//        
-//        NSString *dataModelName = [settings valueForKey:@"dataModelName"];
-//        
-//        if (!dataModelName) {
-//            dataModelName = @"STDataModel";
-//        }
-//        
-//        session.document = [STManagedDocument documentWithUID:session.uid dataModelName:dataModelName prefix:prefix];
-//        
+//
+//
         return session;
         
     } else {
+        
         NSLog(@"no uid");
         return nil;
+        
     }
 
 }
+
+- (void)documentReady:(NSNotification *)notification {
+    if ([[notification.userInfo valueForKey:@"uid"] isEqualToString:self.uid]) {
+//        self.settingsController.startSettings = [self.startSettings mutableCopy];
+        //        self.settingsController = [STSettingsController initWithSettings:self.startSettings];
+//        self.settingsController.session = self;
+    }
+}
+
+- (void)setAuthDelegate:(id<STRequestAuthenticatable>)authDelegate {
+    if (_authDelegate != authDelegate) {
+        _authDelegate = authDelegate;
+//        self.syncer.authDelegate = _authDelegate;
+    }
+}
+
+- (void)setStatus:(NSString *)status {
+    if (_status != status) {
+        _status = status;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sessionStatusChanged" object:self];
+//        [self.logger saveLogMessageWithText:[NSString stringWithFormat:@"Session status changed to %@", self.status] type:nil];
+    }
+}
+
 
 
 @end
