@@ -8,6 +8,7 @@
 
 #import "STLogger.h"
 #import "STLogMessage.h"
+#import "STDocument.h"
 
 @interface STLogger() <NSFetchedResultsControllerDelegate>
 
@@ -19,10 +20,10 @@
 
 @implementation STLogger
 
-- (void)setSession:(STSession *)session {
+- (void)setSession:(id <STSession>)session {
     
     _session = session;
-    self.document = session.document;
+    self.document = (STDocument *)session.document;
     
 }
 

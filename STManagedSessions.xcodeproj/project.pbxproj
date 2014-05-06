@@ -70,6 +70,7 @@
 		2CC00E701918DE3900F4D126 /* STDatum+Init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STDatum+Init.m"; sourceTree = "<group>"; };
 		2CC00E711918DE3900F4D126 /* STLogMessage+dayAsString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STLogMessage+dayAsString.h"; sourceTree = "<group>"; };
 		2CC00E721918DE3900F4D126 /* STLogMessage+dayAsString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STLogMessage+dayAsString.m"; sourceTree = "<group>"; };
+		2CC00E751918DFAE00F4D126 /* STSessionManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSessionManagement.h; sourceTree = "<group>"; };
 		2CE907721918CF1200613066 /* STManagedSessions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STManagedSessions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE907751918CF1200613066 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CE907771918CF1200613066 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -234,6 +235,7 @@
 		2CE907B11918CFF000613066 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				2CC00E751918DFAE00F4D126 /* STSessionManagement.h */,
 				2CE907B21918D00200613066 /* STRequestAuthenticatable.h */,
 			);
 			path = Protocols;

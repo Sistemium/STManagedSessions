@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "STRequestAuthenticatable.h"
+#import "STSessionManagement.h"
 #import "STDocument.h"
+#import "STLogger.h"
 
-@interface STSession : NSObject
+@interface STSession : NSObject <STSession>
 
 @property (nonatomic, strong) id <STRequestAuthenticatable> authDelegate;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) STDocument *document;
+@property (nonatomic, strong) STLogger *logger;
 
 
 + (STSession *)initWithUID:(NSString *)uid

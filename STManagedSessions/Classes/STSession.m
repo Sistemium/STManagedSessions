@@ -77,26 +77,41 @@
 }
 
 - (void)documentReady:(NSNotification *)notification {
+    
     if ([[notification.userInfo valueForKey:@"uid"] isEqualToString:self.uid]) {
+        
+        self.logger = [[STLogger alloc] init];
+        self.logger.session = self;
+
+        [self.logger saveLogMessageWithText:[NSString stringWithFormat:@"document ready: %@", notification.object] type:nil];
+        
 //        self.settingsController.startSettings = [self.startSettings mutableCopy];
         //        self.settingsController = [STSettingsController initWithSettings:self.startSettings];
 //        self.settingsController.session = self;
+
     }
+    
 }
 
 - (void)setAuthDelegate:(id<STRequestAuthenticatable>)authDelegate {
+    
     if (_authDelegate != authDelegate) {
         _authDelegate = authDelegate;
 //        self.syncer.authDelegate = _authDelegate;
     }
+    
 }
 
 - (void)setStatus:(NSString *)status {
+    
     if (_status != status) {
+        
         _status = status;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sessionStatusChanged" object:self];
-//        [self.logger saveLogMessageWithText:[NSString stringWithFormat:@"Session status changed to %@", self.status] type:nil];
+        [self.logger saveLogMessageWithText:[NSString stringWithFormat:@"Session status changed to %@", self.status] type:nil];
+        
     }
+    
 }
 
 

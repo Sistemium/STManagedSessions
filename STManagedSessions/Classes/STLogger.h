@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "STSession.h"
+#import "STSessionManagement.h"
 
 @interface STLogger : NSObject <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) STSession *session;
+@property (nonatomic, strong) id <STSession> session;
 @property (nonatomic, weak) UITableView *tableView;
 
 - (void)saveLogMessageWithText:(NSString *)text type:(NSString *)type;
