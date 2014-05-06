@@ -21,12 +21,12 @@
     if (uid) {
         
         STSession *session = [[STSession alloc] init];
-        session.status = @"initialization";
+        session.status = @"starting";
         session.uid = uid;
         session.startSettings = settings;
         session.authDelegate = authDelegate;
 
-        [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
+        [session addObservers];
         
         NSString *dataModelName = [settings valueForKey:@"dataModelName"];
         
@@ -35,36 +35,7 @@
         }
 
         session.document = [STDocument documentWithUID:session.uid dataModelName:dataModelName prefix:prefix];
-//
-//        id locationTracker = [controllers objectForKey:@"locationTracker"];
-//        if ([locationTracker isKindOfClass:[STTracker class]]) {
-//            session.locationTracker = locationTracker;
-//        } else {
-//            session.locationTracker = [[STLocationTracker alloc] init];
-//        }
-//        id batteryTracker = [controllers objectForKey:@"batteryTracker"];
-//        if ([batteryTracker isKindOfClass:[STTracker class]]) {
-//            session.batteryTracker = batteryTracker;
-//        } else {
-//            session.batteryTracker = [[STBatteryTracker alloc] init];
-//        }
-//        
-//        id settingsController = [controllers objectForKey:@"settingsController"];
-//        if ([settingsController isKindOfClass:[STSettingsController class]]) {
-//            session.settingsController = settingsController;
-//        } else {
-//            session.settingsController = [[STSettingsController alloc] init];
-//        }
-//        
-//        id syncer = [controllers objectForKey:@"syncer"];
-//        if ([syncer isKindOfClass:[STSyncer class]]) {
-//            session.syncer = syncer;
-//        } else {
-//            session.syncer = [[STSyncer alloc] init];
-//        }
-//        
-//
-//
+
         return session;
         
     } else {
@@ -73,6 +44,65 @@
         return nil;
         
     }
+
+}
+
+- (void)stopSession {
+    
+    self.status = @"finishing";
+
+    if (self.document.documentState == UIDocumentStateNormal) {
+        
+        [self.document saveDocument:^(BOOL success) {
+            
+            if (success) {
+                self.status = @"stopped";
+                [self.manager sessionStopped:self];
+            } else {
+                NSLog(@"Can not stop session with uid %@", self.uid);
+            }
+            
+        }];
+        
+    }
+    
+}
+
+- (void)dismissSession {
+    
+    if ([self.status isEqualToString:@"stopped"]) {
+        
+        [self removeObservers];
+        
+        if (self.document.documentState != UIDocumentStateClosed) {
+            
+            [self.document closeWithCompletionHandler:^(BOOL success) {
+                
+                if (success) {
+                    [self.document.managedObjectContext reset];
+                    [self.manager removeSessionForUID:self.uid];
+                }
+                
+            }];
+            
+        }
+        
+    }
+    
+}
+
+
+- (void)addObservers {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(documentReady:) name:@"documentReady" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(documentNotReady:) name:@"documentNotReady" object:nil];
+
+}
+
+- (void)removeObservers {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"documentReady" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"documentNotReady" object:nil];
 
 }
 
@@ -85,10 +115,16 @@
 
         [self.logger saveLogMessageWithText:[NSString stringWithFormat:@"document ready: %@", notification.object] type:nil];
         
-//        self.settingsController.startSettings = [self.startSettings mutableCopy];
-        //        self.settingsController = [STSettingsController initWithSettings:self.startSettings];
-//        self.settingsController.session = self;
+        self.status = @"running";
 
+    }
+    
+}
+
+- (void)documentNotReady:(NSNotification *)notification {
+    
+    if ([[notification.userInfo valueForKey:@"uid"] isEqualToString:self.uid]) {
+        NSLog(@"document not ready");
     }
     
 }
@@ -97,7 +133,6 @@
     
     if (_authDelegate != authDelegate) {
         _authDelegate = authDelegate;
-//        self.syncer.authDelegate = _authDelegate;
     }
     
 }

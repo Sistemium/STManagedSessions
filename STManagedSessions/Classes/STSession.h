@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) STDocument *document;
 @property (nonatomic, strong) STLogger *logger;
+@property (nonatomic, strong) id <STSessionManager> manager;
 
 
 + (STSession *)initWithUID:(NSString *)uid
@@ -27,10 +28,10 @@
                   settings:(NSDictionary *)settings
             documentPrefix:(NSString *)prefix;
 
-//- (void)completeSession;
-//
-//- (void)dismissSession;
-//
+- (void)stopSession;
+
+- (void)dismissSession;
+
 //- (void)settingsLoadComplete;
 
 

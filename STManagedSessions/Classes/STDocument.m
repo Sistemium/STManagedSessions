@@ -59,11 +59,11 @@
                 
                 if (success) {
                     NSLog(@"UIDocumentSaveForOverwriting success");
+                    completionHandler(YES);
                 } else {
                     NSLog(@"UIDocumentSaveForOverwriting not success");
                 }
                 self.saving = NO;
-                completionHandler(success);
                 
             }];
             
@@ -96,28 +96,48 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:[document.fileURL path]]) {
 
         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+            
             if (success) {
                 NSLog(@"document UIDocumentSaveForCreating success");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"documentReady" object:document userInfo:[NSDictionary dictionaryWithObject:uid forKey:@"uid"]];
+                [self document:document readyWithUID:uid];
+            } else {
+                [self document:document notReadyWithUID:uid];
             }
+            
         }];
         
     } else if (document.documentState == UIDocumentStateClosed) {
         
         [document openWithCompletionHandler:^(BOOL success) {
+            
             if (success) {
                 NSLog(@"document openWithCompletionHandler success");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"documentReady" object:document userInfo:[NSDictionary dictionaryWithObject:uid forKey:@"uid"]];
+                [self document:document readyWithUID:uid];
+            } else {
+                [self document:document notReadyWithUID:uid];
             }
+            
         }];
         
     } else if (document.documentState == UIDocumentStateNormal) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"documentReady" object:document userInfo:[NSDictionary dictionaryWithObject:uid forKey:@"uid"]];
+        [self document:document readyWithUID:uid];
         
     }
     
     return document;
+    
+}
+
++ (void)document:(STDocument *)document readyWithUID:(NSString *)uid {
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"documentReady" object:document userInfo:[NSDictionary dictionaryWithObject:uid forKey:@"uid"]];
+
+}
+
++ (void)document:(STDocument *)document notReadyWithUID:(NSString *)uid {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"documentNotReady" object:document userInfo:[NSDictionary dictionaryWithObject:uid forKey:@"uid"]];
     
 }
 
