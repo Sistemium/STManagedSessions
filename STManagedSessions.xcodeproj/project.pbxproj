@@ -22,6 +22,7 @@
 		2CE9079A1918CF1300613066 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907791918CF1200613066 /* UIKit.framework */; };
 		2CE907A21918CF1300613066 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CE907A01918CF1300613066 /* InfoPlist.strings */; };
 		2CE907A41918CF1300613066 /* STManagedSessionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE907A31918CF1300613066 /* STManagedSessionsTests.m */; };
+		2CE907B01918CFB200613066 /* STSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE907AF1918CFB200613066 /* STSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,9 @@
 		2CE9079F1918CF1300613066 /* STManagedSessionsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STManagedSessionsTests-Info.plist"; sourceTree = "<group>"; };
 		2CE907A11918CF1300613066 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2CE907A31918CF1300613066 /* STManagedSessionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STManagedSessionsTests.m; sourceTree = "<group>"; };
+		2CE907AE1918CFB200613066 /* STSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSession.h; path = Classes/STSession.h; sourceTree = "<group>"; };
+		2CE907AF1918CFB200613066 /* STSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSession.m; path = Classes/STSession.m; sourceTree = "<group>"; };
+		2CE907B21918D00200613066 /* STRequestAuthenticatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRequestAuthenticatable.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,8 @@
 		2CE9077B1918CF1200613066 /* STManagedSessions */ = {
 			isa = PBXGroup;
 			children = (
+				2CE907B11918CFF000613066 /* Protocols */,
+				2CE907AD1918CF8B00613066 /* Classes */,
 				2CE907841918CF1200613066 /* STAppDelegate.h */,
 				2CE907851918CF1200613066 /* STAppDelegate.m */,
 				2CE907871918CF1200613066 /* Main_iPhone.storyboard */,
@@ -153,6 +159,23 @@
 				2CE907A01918CF1300613066 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CE907AD1918CF8B00613066 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2CE907AE1918CFB200613066 /* STSession.h */,
+				2CE907AF1918CFB200613066 /* STSession.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		2CE907B11918CFF000613066 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2CE907B21918D00200613066 /* STRequestAuthenticatable.h */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CE9078F1918CF1200613066 /* STViewController.m in Sources */,
+				2CE907B01918CFB200613066 /* STSession.m in Sources */,
 				2CE907821918CF1200613066 /* main.m in Sources */,
 				2CE907861918CF1200613066 /* STAppDelegate.m in Sources */,
 			);
@@ -471,6 +495,7 @@
 				2CE907A91918CF1300613066 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CE907AA1918CF1300613066 /* Build configuration list for PBXNativeTarget "STManagedSessionsTests" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +504,7 @@
 				2CE907AC1918CF1300613066 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
