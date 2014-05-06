@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *sessions;
 @property (nonatomic, strong) id <STSession> currentSession;
+@property (nonatomic, strong) NSString *currentSessionUID;
 
 + (STSessionManager *)sharedManager;
 

@@ -19,8 +19,10 @@
 //- (void)settingsLoadComplete;
 
 @property (strong, nonatomic) UIManagedDocument *document;
+@property (nonatomic, strong) NSString *uid;
+@property (strong, nonatomic) NSString *status;
+
 //@property (nonatomic, strong) id <STSettingsController> settingsController;
-//@property (strong, nonatomic) NSString *status;
 
 @end
 

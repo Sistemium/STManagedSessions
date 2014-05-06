@@ -27,6 +27,23 @@
     return _sessions;
 }
 
+- (STSession *)currentSession {
+    return [self.sessions objectForKey:self.currentSessionUID];
+}
+
+- (void)setCurrentSessionUID:(NSString *)currentSessionUID {
+    
+    if ([[self.sessions allKeys] containsObject:currentSessionUID] || !currentSessionUID) {
+        
+        if (_currentSessionUID != currentSessionUID) {
+            _currentSessionUID = currentSessionUID;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"currentSessionChanged" object:[self.sessions objectForKey:_currentSessionUID]];
+        }
+        
+    }
+    
+}
+
 - (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSArray *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
     
     if (uid) {
@@ -46,7 +63,7 @@
             session.status = @"running";
             
         }
-        
+        self.currentSessionUID = uid;
         return session;
         
     } else {
@@ -62,13 +79,23 @@
     
     STSession *session = [self.sessions objectForKey:uid];
     
-    if ([session.status isEqualToString:@"running"]) {
+    if ([session.status isEqualToString:@"running"] || [session.status isEqualToString:@"removing"]) {
+        
+        if ([self.currentSessionUID isEqualToString:uid]) {
+            self.currentSessionUID = nil;
+        }
+        
         [session stopSession];
+        
     }
     
 }
 
 - (void)sessionStopped:(id <STSession>)session {
+    
+    if ([session.status isEqualToString:@"removing"]) {
+        [self removeSessionForUID:session.uid];
+    }
     
 }
 
@@ -85,8 +112,17 @@
 
 - (void)removeSessionForUID:(NSString *)uid {
 
-    if ([[(STSession *)[self.sessions objectForKey:uid] status] isEqualToString:@"stopped"]) {
+    STSession *session = [self.sessions objectForKey:uid];
+    
+    if ([session.status isEqualToString:@"stopped"]) {
+        
         [self.sessions removeObjectForKey:uid];
+        
+    } else {
+
+        session.status = @"removing";
+        [self stopSessionForUID:uid];
+        
     }
 
 }

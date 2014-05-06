@@ -49,14 +49,14 @@
 
 - (void)stopSession {
     
-    self.status = @"finishing";
+    self.status = [self.status isEqualToString:@"removing"] ? self.status : @"finishing";
 
     if (self.document.documentState == UIDocumentStateNormal) {
         
         [self.document saveDocument:^(BOOL success) {
             
             if (success) {
-                self.status = @"stopped";
+                self.status = [self.status isEqualToString:@"removing"] ? self.status : @"stopped";
                 [self.manager sessionStopped:self];
             } else {
                 NSLog(@"Can not stop session with uid %@", self.uid);
