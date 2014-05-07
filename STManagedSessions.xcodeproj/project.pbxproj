@@ -20,6 +20,9 @@
 		2CC00E731918DE3900F4D126 /* STDatum+Init.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E701918DE3900F4D126 /* STDatum+Init.m */; };
 		2CC00E741918DE3900F4D126 /* STLogMessage+dayAsString.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E721918DE3900F4D126 /* STLogMessage+dayAsString.m */; };
 		2CC00E781919036600F4D126 /* STSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E771919036600F4D126 /* STSessionManager.m */; };
+		2CC00E7B191A528D00F4D126 /* STTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E7A191A528D00F4D126 /* STTracker.m */; };
+		2CC00E7E191A52DC00F4D126 /* STBatteryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E7D191A52DC00F4D126 /* STBatteryTracker.m */; };
+		2CC00E81191A544B00F4D126 /* STLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E80191A544B00F4D126 /* STLocationTracker.m */; };
 		2CE907761918CF1200613066 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907751918CF1200613066 /* Foundation.framework */; };
 		2CE907781918CF1200613066 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907771918CF1200613066 /* CoreGraphics.framework */; };
 		2CE9077A1918CF1200613066 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907791918CF1200613066 /* UIKit.framework */; };
@@ -74,6 +77,12 @@
 		2CC00E751918DFAE00F4D126 /* STSessionManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSessionManagement.h; sourceTree = "<group>"; };
 		2CC00E761919036600F4D126 /* STSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSessionManager.h; sourceTree = "<group>"; };
 		2CC00E771919036600F4D126 /* STSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSessionManager.m; sourceTree = "<group>"; };
+		2CC00E79191A528D00F4D126 /* STTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTracker.h; sourceTree = "<group>"; };
+		2CC00E7A191A528D00F4D126 /* STTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTracker.m; sourceTree = "<group>"; };
+		2CC00E7C191A52DC00F4D126 /* STBatteryTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBatteryTracker.h; sourceTree = "<group>"; };
+		2CC00E7D191A52DC00F4D126 /* STBatteryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBatteryTracker.m; sourceTree = "<group>"; };
+		2CC00E7F191A544B00F4D126 /* STLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationTracker.h; sourceTree = "<group>"; };
+		2CC00E80191A544B00F4D126 /* STLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocationTracker.m; sourceTree = "<group>"; };
 		2CE907721918CF1200613066 /* STManagedSessions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STManagedSessions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE907751918CF1200613066 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CE907771918CF1200613066 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -233,6 +242,12 @@
 				2CC00E431918D48D00F4D126 /* STDocument.m */,
 				2CC00E451918DA7200F4D126 /* STLogger.h */,
 				2CC00E461918DA7200F4D126 /* STLogger.m */,
+				2CC00E79191A528D00F4D126 /* STTracker.h */,
+				2CC00E7A191A528D00F4D126 /* STTracker.m */,
+				2CC00E7C191A52DC00F4D126 /* STBatteryTracker.h */,
+				2CC00E7D191A52DC00F4D126 /* STBatteryTracker.m */,
+				2CC00E7F191A544B00F4D126 /* STLocationTracker.h */,
+				2CC00E80191A544B00F4D126 /* STLocationTracker.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -349,10 +364,13 @@
 				2CC00E6B1918DC1200F4D126 /* STBatteryStatus.m in Sources */,
 				2CC00E441918D48D00F4D126 /* STDocument.m in Sources */,
 				2CC00E781919036600F4D126 /* STSessionManager.m in Sources */,
+				2CC00E81191A544B00F4D126 /* STLocationTracker.m in Sources */,
 				2CC00E741918DE3900F4D126 /* STLogMessage+dayAsString.m in Sources */,
 				2CC00E681918DC1200F4D126 /* STSettings.m in Sources */,
 				2CC00E731918DE3900F4D126 /* STDatum+Init.m in Sources */,
+				2CC00E7E191A52DC00F4D126 /* STBatteryTracker.m in Sources */,
 				2CE9078F1918CF1200613066 /* STViewController.m in Sources */,
+				2CC00E7B191A528D00F4D126 /* STTracker.m in Sources */,
 				2CC00E4A1918DBD200F4D126 /* STDataModel.xcdatamodel in Sources */,
 				2CC00E471918DA7200F4D126 /* STLogger.m in Sources */,
 				2CC00E6E1918DC1200F4D126 /* STDatum.m in Sources */,
