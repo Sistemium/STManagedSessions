@@ -27,7 +27,7 @@
         session.authDelegate = authDelegate;
 
         [session addObservers];
-        
+
         NSString *dataModelName = [settings valueForKey:@"dataModelName"];
         
         if (!dataModelName) {
@@ -96,6 +96,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(documentReady:) name:@"documentReady" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(documentNotReady:) name:@"documentNotReady" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsLoadComplete) name:@"settingsLoadComplete" object:self.settingsController];
 
 }
 
@@ -103,6 +104,7 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"documentReady" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"documentNotReady" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"settingsLoadComplete" object:self.settingsController];
 
 }
 
@@ -128,6 +130,17 @@
     }
     
 }
+
+- (void)settingsLoadComplete {
+    //    NSLog(@"currentSettings %@", [self.settingsController currentSettings]);
+//    self.locationTracker.session = self;
+//    self.batteryTracker.session = self;
+//    self.syncer.authDelegate = self.authDelegate;
+//    self.syncer.session = self;
+    self.status = @"running";
+    //    [self.lapTracker startTracking];
+}
+
 
 - (void)setAuthDelegate:(id<STRequestAuthenticatable>)authDelegate {
     

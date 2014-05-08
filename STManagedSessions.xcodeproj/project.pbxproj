@@ -23,6 +23,7 @@
 		2CC00E7B191A528D00F4D126 /* STTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E7A191A528D00F4D126 /* STTracker.m */; };
 		2CC00E7E191A52DC00F4D126 /* STBatteryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E7D191A52DC00F4D126 /* STBatteryTracker.m */; };
 		2CC00E81191A544B00F4D126 /* STLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E80191A544B00F4D126 /* STLocationTracker.m */; };
+		2CC00E87191B6C6500F4D126 /* STSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E86191B6C6400F4D126 /* STSettingsController.m */; };
 		2CE907761918CF1200613066 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907751918CF1200613066 /* Foundation.framework */; };
 		2CE907781918CF1200613066 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907771918CF1200613066 /* CoreGraphics.framework */; };
 		2CE9077A1918CF1200613066 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907791918CF1200613066 /* UIKit.framework */; };
@@ -83,6 +84,8 @@
 		2CC00E7D191A52DC00F4D126 /* STBatteryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBatteryTracker.m; sourceTree = "<group>"; };
 		2CC00E7F191A544B00F4D126 /* STLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationTracker.h; sourceTree = "<group>"; };
 		2CC00E80191A544B00F4D126 /* STLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocationTracker.m; sourceTree = "<group>"; };
+		2CC00E85191B6C6400F4D126 /* STSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSettingsController.h; sourceTree = "<group>"; };
+		2CC00E86191B6C6400F4D126 /* STSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettingsController.m; sourceTree = "<group>"; };
 		2CE907721918CF1200613066 /* STManagedSessions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STManagedSessions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE907751918CF1200613066 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CE907771918CF1200613066 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -248,6 +251,8 @@
 				2CC00E7D191A52DC00F4D126 /* STBatteryTracker.m */,
 				2CC00E7F191A544B00F4D126 /* STLocationTracker.h */,
 				2CC00E80191A544B00F4D126 /* STLocationTracker.m */,
+				2CC00E85191B6C6400F4D126 /* STSettingsController.h */,
+				2CC00E86191B6C6400F4D126 /* STSettingsController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CC00E651918DC1200F4D126 /* STLogMessage.m in Sources */,
+				2CC00E87191B6C6500F4D126 /* STSettingsController.m in Sources */,
 				2CC00E6B1918DC1200F4D126 /* STBatteryStatus.m in Sources */,
 				2CC00E441918D48D00F4D126 /* STDocument.m in Sources */,
 				2CC00E781919036600F4D126 /* STSessionManager.m in Sources */,

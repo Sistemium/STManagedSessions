@@ -35,9 +35,9 @@
 - (void)removeSessionForUID:(NSString *)uid;
 
 @end
-//
-//@protocol STSettingsController <NSObject>
-//
-//- (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
-//
-//@end
+
+@protocol STSettingsController <NSObject>
+
+- (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
+
+@end

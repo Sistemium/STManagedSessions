@@ -11,6 +11,7 @@
 #import "STSessionManagement.h"
 #import "STDocument.h"
 #import "STLogger.h"
+#import "STSettingsController.h"
 
 @interface STSession : NSObject <STSession>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) STDocument *document;
 @property (nonatomic, strong) STLogger *logger;
 @property (nonatomic, strong) id <STSessionManager> manager;
+@property (nonatomic, strong) STSettingsController *settingsController;
 
 
 + (STSession *)initWithUID:(NSString *)uid
