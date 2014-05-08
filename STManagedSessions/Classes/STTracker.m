@@ -42,8 +42,29 @@
 
 - (void)customInit {
     
+    [self addObservers];
+    NSLog(@"%@ tracker init", self.group);
+    
+}
+
+- (void)addObservers {
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStatusChanged:) name:@"sessionStatusChanged" object:self.session];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trackerSettingsChanged:) name:[NSString stringWithFormat:@"%@SettingsChanged", self.group] object:(id <STSession>)self.session];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trackerSettingsChanged:) name:[NSString stringWithFormat:@"%@SettingsChanged", self.group] object:self.session];
+
+}
+
+- (void)removeObservers {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sessionStatusChanged" object:self.session];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:[NSString stringWithFormat:@"%@SettingsChanged", self.group] object:self.session];
+    
+}
+
+- (void)prepareToDestroy {
+    
+    [self stopTracking];
+    [self removeObservers];
     
 }
 
@@ -58,10 +79,10 @@
     
     if (!_settings) {
         
-//        _settings = [[(id <STSession>)self.session settingsController] currentSettingsForGroup:self.group];
-//        for (NSString *settingName in [_settings allKeys]) {
-//            [_settings addObserver:self forKeyPath:settingName options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
-//        }
+        _settings = [[(id <STSession>)self.session settingsController] currentSettingsForGroup:self.group];
+        for (NSString *settingName in [_settings allKeys]) {
+            [_settings addObserver:self forKeyPath:settingName options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+        }
         
     }
     

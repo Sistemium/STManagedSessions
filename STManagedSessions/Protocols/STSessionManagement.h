@@ -10,9 +10,19 @@
 //#import "STManagedDocument.h"
 #import "STRequestAuthenticatable.h"
 
+
+
+@protocol STSettingsController <NSObject>
+
+- (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
+
+@end
+
+
+
 @protocol STSession <NSObject>
 
-+ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSArray *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
++ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
 
 //- (void)completeSession;
 //- (void)dismissSession;
@@ -21,23 +31,18 @@
 @property (strong, nonatomic) UIManagedDocument *document;
 @property (nonatomic, strong) NSString *uid;
 @property (strong, nonatomic) NSString *status;
-
-//@property (nonatomic, strong) id <STSettingsController> settingsController;
+@property (nonatomic, strong) id <STSettingsController> settingsController;
 
 @end
 
+
+
 @protocol STSessionManager <NSObject>
 
-- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSArray *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
+- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
 - (void)stopSessionForUID:(NSString *)uid;
 - (void)sessionStopped:(id)session;
 - (void)cleanStoppedSessions;
 - (void)removeSessionForUID:(NSString *)uid;
-
-@end
-
-@protocol STSettingsController <NSObject>
-
-- (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
 
 @end

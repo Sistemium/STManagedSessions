@@ -12,6 +12,8 @@
 #import "STDocument.h"
 #import "STLogger.h"
 #import "STSettingsController.h"
+#import "STLocationTracker.h"
+#import "STBatteryTracker.h"
 
 @interface STSession : NSObject <STSession>
 
@@ -22,19 +24,20 @@
 @property (nonatomic, strong) STLogger *logger;
 @property (nonatomic, strong) id <STSessionManager> manager;
 @property (nonatomic, strong) STSettingsController *settingsController;
+@property (nonatomic, strong) STLocationTracker *locationTracker;
+@property (nonatomic, strong) STBatteryTracker *batteryTracker;
+@property (nonatomic, strong) NSMutableDictionary *trackers;
 
 
 + (STSession *)initWithUID:(NSString *)uid
               authDelegate:(id <STRequestAuthenticatable>)authDelegate
-               controllers:(NSArray *)controllers
+               trackers:(NSArray *)trackers
                   settings:(NSDictionary *)settings
             documentPrefix:(NSString *)prefix;
 
 - (void)stopSession;
 
 - (void)dismissSession;
-
-//- (void)settingsLoadComplete;
 
 
 @end

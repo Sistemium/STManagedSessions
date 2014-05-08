@@ -23,5 +23,6 @@
 - (void)customInit;
 - (void)startTracking;
 - (void)stopTracking;
+- (void)prepareToDestroy;
 
 @end

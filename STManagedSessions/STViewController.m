@@ -8,6 +8,7 @@
 
 #import "STViewController.h"
 #import "STSessionManager.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface STViewController ()
 
@@ -29,7 +30,18 @@
 
 - (void)customInit {
     
-    [self.sessionManager startSessionForUID:@"1" authDelegate:nil controllers:nil settings:nil documentPrefix:@"test"];
+    NSArray *trackers = [NSArray arrayWithObjects:@"battery", @"location", nil];
+    NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [NSString stringWithFormat:@"%d", YES], @"batteryTrackerAutoStart",
+                                        @"8.0", @"batteryTrackerStartTime",
+                                        @"20.0", @"batteryTrackerFinishTime",
+                                        [NSString stringWithFormat:@"%d", YES], @"locationTrackerAutoStart",
+                                        @"8.0", @"locationTrackerStartTime",
+                                        @"20.0", @"locationTrackerFinishTime",
+                                        [NSString stringWithFormat:@"%f", kCLDistanceFilterNone], @"distanceFilter",
+                                     nil];
+
+    [self.sessionManager startSessionForUID:@"1" authDelegate:nil trackers:trackers settings:settings documentPrefix:@"test"];
     
 }
 

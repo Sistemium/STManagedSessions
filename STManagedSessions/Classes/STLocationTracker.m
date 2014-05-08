@@ -128,7 +128,7 @@
         _locationManager.delegate = self;
         _locationManager.distanceFilter = self.distanceFilter;
         _locationManager.desiredAccuracy = self.desiredAccuracy;
-        self.locationManager.pausesLocationUpdatesAutomatically = NO;
+        _locationManager.pausesLocationUpdatesAutomatically = NO;
     }
     
     return _locationManager;

@@ -16,7 +16,7 @@
 
 @implementation STSession
 
-+(STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSArray *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
++(STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
     
     if (uid) {
         
@@ -25,7 +25,23 @@
         session.uid = uid;
         session.startSettings = settings;
         session.authDelegate = authDelegate;
+        session.settingsController = [[STSettingsController alloc] init];
+        session.trackers = [NSMutableDictionary dictionary];
 
+        if ([trackers containsObject:@"location"]) {
+            
+            session.locationTracker = [[STLocationTracker alloc] init];
+            [session.trackers setObject:session.locationTracker forKey:session.locationTracker.group];
+
+        }
+        
+        if ([trackers containsObject:@"battery"]) {
+            
+            session.batteryTracker = [[STBatteryTracker alloc] init];
+            [session.trackers setObject:session.batteryTracker forKey:session.batteryTracker.group];
+
+        }
+        
         [session addObservers];
 
         NSString *dataModelName = [settings valueForKey:@"dataModelName"];
@@ -79,8 +95,13 @@
             [self.document closeWithCompletionHandler:^(BOOL success) {
                 
                 if (success) {
+                    
+                    for (STTracker *tracker in self.trackers.allValues) {
+                        [tracker prepareToDestroy];
+                    }
                     [self.document.managedObjectContext reset];
                     [self.manager removeSessionForUID:self.uid];
+                    
                 }
                 
             }];
@@ -117,7 +138,8 @@
 
         [self.logger saveLogMessageWithText:[NSString stringWithFormat:@"document ready: %@", notification.object] type:nil];
         
-        self.status = @"running";
+        self.settingsController.startSettings = [self.startSettings mutableCopy];
+        self.settingsController.session = self;
 
     }
     
@@ -132,13 +154,14 @@
 }
 
 - (void)settingsLoadComplete {
-    //    NSLog(@"currentSettings %@", [self.settingsController currentSettings]);
-//    self.locationTracker.session = self;
-//    self.batteryTracker.session = self;
+    
+//    NSLog(@"currentSettings %@", [self.settingsController currentSettings]);
+    self.locationTracker.session = self;
+    self.batteryTracker.session = self;
 //    self.syncer.authDelegate = self.authDelegate;
 //    self.syncer.session = self;
     self.status = @"running";
-    //    [self.lapTracker startTracking];
+    
 }
 
 

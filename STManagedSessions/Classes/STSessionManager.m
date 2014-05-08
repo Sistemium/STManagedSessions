@@ -44,7 +44,7 @@
     
 }
 
-- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSArray *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
+- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
     
     if (uid) {
         
@@ -52,7 +52,7 @@
         
         if (!session) {
             
-            session = [STSession initWithUID:uid authDelegate:authDelegate controllers:controllers settings:settings documentPrefix:prefix];
+            session = [STSession initWithUID:uid authDelegate:authDelegate trackers:trackers settings:settings documentPrefix:prefix];
             session.manager = self;
 
             [self.sessions setValue:session forKey:uid];
@@ -94,7 +94,10 @@
 - (void)sessionStopped:(id <STSession>)session {
     
     if ([session.status isEqualToString:@"removing"]) {
+        
+        session.status = @"stopped";
         [self removeSessionForUID:session.uid];
+        
     }
     
 }

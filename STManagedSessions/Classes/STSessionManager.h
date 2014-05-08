@@ -19,7 +19,7 @@
 
 - (id <STSession>)startSessionForUID:(NSString *)uid
               authDelegate:(id <STRequestAuthenticatable>)authDelegate
-               controllers:(NSArray *)controllers
+               trackers:(NSArray *)trackers
                   settings:(NSDictionary *)settings
             documentPrefix:(NSString *)prefix;
 
