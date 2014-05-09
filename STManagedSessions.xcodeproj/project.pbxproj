@@ -26,6 +26,7 @@
 		2CC00E87191B6C6500F4D126 /* STSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E86191B6C6400F4D126 /* STSettingsController.m */; };
 		2CC00E8A191CBBFB00F4D126 /* STSettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E89191CBBFB00F4D126 /* STSettingsTVC.m */; };
 		2CC00E8D191CBFA300F4D126 /* STSettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC00E8C191CBFA300F4D126 /* STSettingsData.m */; };
+		2CC00E90191CD7EB00F4D126 /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CC00E8F191CD7EB00F4D126 /* settings.json */; };
 		2CE907761918CF1200613066 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907751918CF1200613066 /* Foundation.framework */; };
 		2CE907781918CF1200613066 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907771918CF1200613066 /* CoreGraphics.framework */; };
 		2CE9077A1918CF1200613066 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE907791918CF1200613066 /* UIKit.framework */; };
@@ -92,6 +93,7 @@
 		2CC00E89191CBBFB00F4D126 /* STSettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettingsTVC.m; sourceTree = "<group>"; };
 		2CC00E8B191CBFA300F4D126 /* STSettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSettingsData.h; sourceTree = "<group>"; };
 		2CC00E8C191CBFA300F4D126 /* STSettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettingsData.m; sourceTree = "<group>"; };
+		2CC00E8F191CD7EB00F4D126 /* settings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
 		2CE907721918CF1200613066 /* STManagedSessions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STManagedSessions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE907751918CF1200613066 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CE907771918CF1200613066 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -163,6 +165,14 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
+		2CC00E8E191CD7C900F4D126 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2CC00E8F191CD7EB00F4D126 /* settings.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2CE907691918CF1200613066 = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +206,7 @@
 		2CE9077B1918CF1200613066 /* STManagedSessions */ = {
 			isa = PBXGroup;
 			children = (
+				2CC00E8E191CD7C900F4D126 /* Resources */,
 				2CC00E481918DBA600F4D126 /* DataModel */,
 				2CE907B11918CFF000613066 /* Protocols */,
 				2CE907AD1918CF8B00613066 /* Classes */,
@@ -356,6 +367,7 @@
 				2CE9078C1918CF1200613066 /* Main_iPad.storyboard in Resources */,
 				2CE907911918CF1200613066 /* Images.xcassets in Resources */,
 				2CE907891918CF1200613066 /* Main_iPhone.storyboard in Resources */,
+				2CC00E90191CD7EB00F4D126 /* settings.json in Resources */,
 				2CE907801918CF1200613066 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
