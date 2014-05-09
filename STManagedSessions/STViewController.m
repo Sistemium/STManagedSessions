@@ -9,6 +9,9 @@
 #import "STViewController.h"
 #import "STSessionManager.h"
 #import <CoreLocation/CoreLocation.h>
+#import "STSettingsTVC.h"
+
+#define UID @"1"
 
 @interface STViewController ()
 
@@ -28,7 +31,27 @@
     
 }
 
+- (void)sessionStatusChanged:(NSNotification *)notification {
+    
+    if ([notification.object conformsToProtocol:@protocol(STSession)]) {
+        
+        id <STSession> session = notification.object;
+        
+        if ([session.uid isEqualToString:UID]) {
+            
+            STSettingsTVC *settingsTVC = [[STSettingsTVC alloc] init];
+            settingsTVC.session = session;
+            [self.navigationController pushViewController:settingsTVC animated:YES];
+            
+        }
+        
+    }
+    
+}
+
 - (void)customInit {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStatusChanged:) name:@"sessionStatusChanged" object:nil];
     
     NSArray *trackers = [NSArray arrayWithObjects:@"battery", @"location", nil];
     NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -39,9 +62,10 @@
                                         @"8.0", @"locationTrackerStartTime",
                                         @"20.0", @"locationTrackerFinishTime",
                                         [NSString stringWithFormat:@"%f", kCLDistanceFilterNone], @"distanceFilter",
+                                        @"0", @"requiredAccuracy",
                                      nil];
 
-    [self.sessionManager startSessionForUID:@"1" authDelegate:nil trackers:trackers settings:settings documentPrefix:@"test"];
+    [self.sessionManager startSessionForUID:UID authDelegate:nil trackers:trackers settings:settings documentPrefix:@"test"];
     
 }
 

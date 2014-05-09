@@ -9,6 +9,7 @@
 #import "STSettingsController.h"
 #import "STSettings.h"
 #import "STSession.h"
+#import "STSettingsData.h"
 
 @interface STSettingsController() <NSFetchedResultsControllerDelegate>
 
@@ -28,56 +29,14 @@
 }
 
 - (NSDictionary *)defaultSettings {
-    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionary];
-
-    NSMutableDictionary *locationTrackerSettings = [NSMutableDictionary dictionary];
-    [locationTrackerSettings setValue:[NSString stringWithFormat:@"%f", kCLLocationAccuracyBestForNavigation] forKey:@"desiredAccuracy"];
-    [locationTrackerSettings setValue:@"10.0" forKey:@"requiredAccuracy"];
-    [locationTrackerSettings setValue:[NSString stringWithFormat:@"%f", kCLDistanceFilterNone] forKey:@"distanceFilter"];
-    [locationTrackerSettings setValue:@"0" forKey:@"timeFilter"];
-    [locationTrackerSettings setValue:@"300.0" forKey:@"trackDetectionTime"];
-    [locationTrackerSettings setValue:@"100.0" forKey:@"trackSeparationDistance"];
-    [locationTrackerSettings setValue:[NSString stringWithFormat:@"%d", NO] forKey:@"locationTrackerAutoStart"];
-    [locationTrackerSettings setValue:@"8.0" forKey:@"locationTrackerStartTime"];
-    [locationTrackerSettings setValue:@"20.0" forKey:@"locationTrackerFinishTime"];
-    [locationTrackerSettings setValue:@"0.1" forKey:@"deviceMotionUpdateInterval"];
-    [locationTrackerSettings setValue:[NSString stringWithFormat:@"%d", NO] forKey:@"deviceMotionUpdate"];
-
-    [defaultSettings setValue:locationTrackerSettings forKey:@"location"];
-
     
-    NSMutableDictionary *batteryTrackerSettings = [NSMutableDictionary dictionary];
-    [batteryTrackerSettings setValue:[NSString stringWithFormat:@"%d", NO] forKey:@"batteryTrackerAutoStart"];
-    [batteryTrackerSettings setValue:@"8.0" forKey:@"batteryTrackerStartTime"];
-    [batteryTrackerSettings setValue:@"20.0" forKey:@"batteryTrackerFinishTime"];
+    return [STSettingsData defaultSettings];
     
-    [defaultSettings setValue:batteryTrackerSettings forKey:@"battery"];
-
-    
-    NSMutableDictionary *syncerSettings = [NSMutableDictionary dictionary];
-    [syncerSettings setValue:@"20" forKey:@"fetchLimit"];
-    [syncerSettings setValue:@"240.0" forKey:@"syncInterval"];
-    [syncerSettings setValue:@"https://system.unact.ru/iproxy/rest" forKey:@"restServerURI"];
-    [syncerSettings setValue:@"https://system.unact.ru/iproxy/news/megaport" forKey:@"recieveDataServerURI"];
-    [syncerSettings setValue:@"https://system.unact.ru/iproxy/chest/test" forKey:@"sendDataServerURI"];
-    [syncerSettings setValue:@"https://github.com/sys-team/ASA.chest" forKey:@"xmlNamespace"];
-    
-    [defaultSettings setValue:syncerSettings forKey:@"syncer"];
-
-    
-    NSMutableDictionary *generalSettings = [NSMutableDictionary dictionary];
-    [generalSettings setValue:[NSString stringWithFormat:@"%d", YES] forKey:@"localAccessToSettings"];
-    
-    [defaultSettings setValue:generalSettings forKey:@"general"];
-    
-    
-    return defaultSettings;
-
 }
 
 - (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key {
     
-    NSArray *positiveDoubleValues = [NSArray arrayWithObjects:@"requiredAccuracy", @"trackDetectionTime", @"trackSeparationDistance", @"fetchLimit", @"syncInterval", @"deviceMotionUpdateInterval", nil];
+    NSArray *positiveDoubleValues = [NSArray arrayWithObjects:@"trackDetectionTime", @"trackSeparationDistance", @"fetchLimit", @"syncInterval", @"deviceMotionUpdateInterval", nil];
     
     NSArray *boolValues = [NSArray arrayWithObjects:@"localAccessToSettings", @"deviceMotionUpdate", nil];
     NSArray *boolValueSuffixes = [NSArray arrayWithObjects:@"TrackerAutoStart", nil];
@@ -119,7 +78,7 @@
             return [NSString stringWithFormat:@"%f", dValue];
         }
         
-    } else if ([key isEqualToString:@"timeFilter"]) {
+    } else if ([key isEqualToString:@"timeFilter"] || [key isEqualToString:@"requiredAccuracy"]) {
         double dValue = [value doubleValue];
         if (dValue >= 0) {
             return [NSString stringWithFormat:@"%f", dValue];
@@ -269,7 +228,7 @@
     
 }
 
-- (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group {
+- (NSString *)setNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group {
 
     NSString *value;
     

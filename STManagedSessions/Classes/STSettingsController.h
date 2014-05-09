@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-//#import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "STSessionManagement.h"
 
@@ -20,7 +19,7 @@
 - (NSDictionary *)defaultSettings;
 - (NSArray *)currentSettings;
 - (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key;
-- (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
+- (NSString *)setNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
 - (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
 
 - (BOOL)isPositiveDouble:(NSString *)value;

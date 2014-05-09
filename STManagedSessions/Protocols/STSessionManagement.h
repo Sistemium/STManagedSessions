@@ -14,7 +14,9 @@
 
 @protocol STSettingsController <NSObject>
 
+- (NSArray *)currentSettings;
 - (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
+- (NSString *)setNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
 
 @end
 

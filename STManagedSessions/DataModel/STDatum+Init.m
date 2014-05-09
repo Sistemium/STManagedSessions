@@ -34,7 +34,7 @@
         if (!largestId) {
             largestId = [NSNumber numberWithInt:1];
         } else {
-            largestId = [NSNumber numberWithInt:[largestId integerValue]+1];
+            largestId = [NSNumber numberWithInt:(int)[largestId integerValue]+1];
         }
         [self setPrimitiveValue:largestId forKey:@"id"];
         [defaults setObject:largestId forKey:@"largestId"];

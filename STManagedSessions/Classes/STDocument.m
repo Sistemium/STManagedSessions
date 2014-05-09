@@ -69,7 +69,7 @@
             
         } else {
             NSLog(@"documentState != UIDocumentStateNormal for document: %@", self);
-            NSLog(@"documentState is %u", self.documentState);
+            NSLog(@"documentState is %u", (int)self.documentState);
         }
 
     }
