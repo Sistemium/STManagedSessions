@@ -7,7 +7,7 @@
       [
         {
           "name": "localAccessToSettings",
-          "value": 1,
+          "value": true,
           "control": "switch"
         }
       ]
@@ -66,7 +66,7 @@
         },
         {
           "name": "locationTrackerAutoStart",
-          "value": 0,
+          "value": false,
           "control": "switch"
         },
         {
@@ -93,7 +93,7 @@
       [
         {
           "name": "batteryTrackerAutoStart",
-          "value": 0,
+          "value": false,
           "control": "switch"
         },
         {
