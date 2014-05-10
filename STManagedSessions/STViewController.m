@@ -65,7 +65,7 @@
                                         @"0", @"requiredAccuracy",
                                      nil];
 
-    [self.sessionManager startSessionForUID:UID authDelegate:nil trackers:trackers settings:settings documentPrefix:@"test"];
+    [self.sessionManager startSessionForUID:UID authDelegate:nil trackers:trackers settings:settings settingsFileName:@"settings" documentPrefix:@"test"];
     
 }
 

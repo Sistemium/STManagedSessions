@@ -18,10 +18,11 @@
 + (STSessionManager *)sharedManager;
 
 - (id <STSession>)startSessionForUID:(NSString *)uid
-              authDelegate:(id <STRequestAuthenticatable>)authDelegate
-               trackers:(NSArray *)trackers
-                  settings:(NSDictionary *)settings
-            documentPrefix:(NSString *)prefix;
+                        authDelegate:(id <STRequestAuthenticatable>)authDelegate
+                            trackers:(NSArray *)trackers
+                            settings:(NSDictionary *)settings
+                    settingsFileName:(NSString *)settingsFileName
+                      documentPrefix:(NSString *)prefix;
 
 - (void)stopSessionForUID:(NSString *)uid;
 

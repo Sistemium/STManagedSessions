@@ -41,7 +41,7 @@
 
 @protocol STSessionManager <NSObject>
 
-- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
+- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings settingsFileName:(NSString *)settingsFileName documentPrefix:(NSString *)prefix;
 - (void)stopSessionForUID:(NSString *)uid;
 - (void)sessionStopped:(id)session;
 - (void)cleanStoppedSessions;

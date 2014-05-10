@@ -44,13 +44,39 @@
     
 }
 
-- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
+- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings settingsFileName:(NSString *)settingsFileName documentPrefix:(NSString *)prefix {
     
     if (uid) {
         
         STSession *session = [self.sessions objectForKey:uid];
         
         if (!session) {
+            
+            NSString *settingsPath = [[NSBundle mainBundle] pathForResource:settingsFileName ofType:@"json"];
+            NSData *settingsData = [NSData dataWithContentsOfFile:settingsPath];
+            NSError *error;
+            id settingsJSON = [NSJSONSerialization JSONObjectWithData:settingsData options:NSJSONReadingMutableContainers error:&error];
+
+            if ([settingsJSON isKindOfClass:[NSDictionary class]]) {
+                
+                id defaultSettings = [settingsJSON objectForKey:@"defaultSettings"];
+                
+                if ([defaultSettings isKindOfClass:[NSArray class]]) {
+                    
+                    for (id group in defaultSettings) {
+                        
+                        if ([group isKindOfClass:[NSDictionary class]]) {
+                            
+                            NSString *groupName = [group valueForKey:@"group"];
+                            NSLog(@"groupName %@", groupName);
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
             
             session = [STSession initWithUID:uid authDelegate:authDelegate trackers:trackers settings:settings documentPrefix:prefix];
             session.manager = self;

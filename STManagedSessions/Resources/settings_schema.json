@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "session settings",
+    "description": "session settings",
+    "type": "object",
+    "properties": {
+        "defaultSettings": {
+            "type": "object"
+        }
+    },
+    "required": ["defaultSettings"]
+}
