@@ -75,7 +75,7 @@
 
 - (NSArray *)groupNames {
     
-    return [[self controlsSettings] allKeys];
+    return [[self controlsSettings] valueForKey:@"groupNames"];
     
 }
 

@@ -37,6 +37,8 @@
         NSError *error;
         NSDictionary *settingsJSON = [NSJSONSerialization JSONObjectWithData:settingsData options:NSJSONReadingMutableContainers error:&error];
         
+        NSMutableArray *settingsControlGroupNames = [NSMutableArray array];
+        
         for (NSDictionary *group in [settingsJSON objectForKey:@"defaultSettings"]) {
             
             NSString *groupName = [group valueForKey:@"group"];
@@ -53,9 +55,9 @@
                 
                 [settingsValuesGroup setValue:itemValue forKey:itemName];
                 
-                NSString *itemConrtolType = [settingItem valueForKey:@"control"];
+                NSString *itemControlType = [settingItem valueForKey:@"control"];
                 
-                if (itemConrtolType) {
+                if (itemControlType) {
                     
                     NSString *itemMinValue = [[settingItem valueForKey:@"min"] stringValue];
                     NSString *itemMaxValue = [[settingItem valueForKey:@"max"] stringValue];
@@ -65,7 +67,7 @@
                     itemMaxValue = itemMaxValue ? itemMaxValue : @"";
                     itemStepValue = itemStepValue ? itemStepValue : @"";
                     
-                    [settingsControlsGroup addObject:@[itemConrtolType, itemMinValue, itemMaxValue, itemStepValue, itemName]];
+                    [settingsControlsGroup addObject:@[itemControlType, itemMinValue, itemMaxValue, itemStepValue, itemName]];
                     
                     NSLog(@"%@", itemName);
                     
@@ -78,9 +80,12 @@
             }
             if (settingsControlsGroup.count > 0) {
                 [settingsControls setObject:settingsControlsGroup forKey:groupName];
+                [settingsControlGroupNames addObject:groupName];
             }
             
         }
+        
+        [settingsControls setObject:settingsControlGroupNames forKey:@"groupNames"];
         
         return [NSDictionary dictionaryWithObjectsAndKeys:settingsValues, @"values", settingsControls, @"controls", nil];
         
