@@ -19,9 +19,16 @@
     
     NSString *settingsPath = [[NSBundle mainBundle] pathForResource:settingsFileName ofType:@"json"];
     NSData *settingsData = [NSData dataWithContentsOfFile:settingsPath];
+
+    return [self settingsFromData:settingsData withSchema:schemaData];
+    
+}
+
+
++ (NSDictionary *)settingsFromData:(NSData *)settingsData withSchema:(NSData *)schemaData {
     
     KiteJSONValidator *JSONValidator = [[KiteJSONValidator alloc] init];
-
+    
     if ([JSONValidator validateJSONData:settingsData withSchemaData:schemaData]) {
         
         NSMutableDictionary *settingsValues = [NSMutableDictionary dictionary];
@@ -61,11 +68,11 @@
                     [settingsControlsGroup addObject:@[itemConrtolType, itemMinValue, itemMaxValue, itemStepValue, itemName]];
                     
                     NSLog(@"%@", itemName);
-
+                    
                 }
                 
             }
-
+            
             if (settingsValuesGroup.count > 0) {
                 [settingsValues setObject:settingsValuesGroup forKey:groupName];
             }

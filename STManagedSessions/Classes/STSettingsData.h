@@ -14,5 +14,6 @@
 + (NSDictionary *)controlsSettings;
 
 + (NSDictionary *)settingsFromFileName:(NSString *)settingsFileName withSchemaName:(NSString *)schemaName;
++ (NSDictionary *)settingsFromData:(NSData *)settingsData withSchema:(NSData *)schemaData;
 
 @end

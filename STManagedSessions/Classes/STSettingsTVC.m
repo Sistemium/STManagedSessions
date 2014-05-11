@@ -56,42 +56,48 @@
 
 #pragma mark - STGTSettingsTableViewController
 
-//+ (NSDictionary *)controlsSettings {
-//
-//    return self.session.controlsSettings;
-//
-//}
-
-
 - (NSDictionary *)controlsSettings {
+    
     if (!_controlsSettings) {
         _controlsSettings = self.session.settingsControls;
     }
+    
     return _controlsSettings;
+    
 }
 
 - (STSettings *)settingObjectForIndexPath:(NSIndexPath *)indexPath {
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.group == %@ && SELF.name == %@", [[self groupNames] objectAtIndex:indexPath.section], [self settingNameForIndexPath:indexPath]];
     return [[[self.session.settingsController currentSettings] filteredArrayUsingPredicate:predicate] lastObject];
+    
 }
 
 - (NSArray *)groupNames {
-    return [[self controlsSettings] valueForKey:@"groupNames"];
+    
+    return [[self controlsSettings] allKeys];
+    
 }
 
 - (NSArray *)settingsGroupForSection:(NSInteger)section {
+    
     NSString *groupName = [[self groupNames] objectAtIndex:section];
     return [self.controlsSettings valueForKey:groupName];
+    
 }
 
 - (NSString *)controlTypeForIndexPath:(NSIndexPath *)indexPath {
+    
     NSArray *controlGroup = [self settingsGroupForSection:indexPath.section];
     return [[controlGroup objectAtIndex:indexPath.row] objectAtIndex:0];
+    
 }
 
 - (NSString *)minForIndexPath:(NSIndexPath *)indexPath {
+    
     NSArray *controlGroup = [self settingsGroupForSection:indexPath.section];
     return [[controlGroup objectAtIndex:indexPath.row] objectAtIndex:1];
+    
 }
 
 - (NSString *)maxForIndexPath:(NSIndexPath *)indexPath {
