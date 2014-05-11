@@ -315,6 +315,18 @@
 
 #pragma mark - controls
 
+- (STSettingsTVCell *)cellForView:(UIView *)view {
+    
+    if ([view.superview isKindOfClass:[STSettingsTVCell class]]) {
+        return (STSettingsTVCell *)view.superview;
+    } else if (view.superview == nil) {
+        return nil;
+    } else {
+        return [self cellForView:view.superview];
+    }
+    
+}
+
 - (void)setSlider:(UISlider *)slider value:(double)value forSettingName:(NSString *)settingName {
     
     if ([settingName isEqualToString:@"desiredAccuracy"]) {
@@ -336,7 +348,7 @@
 
 - (void)sliderValueChanged:(UISlider *)slider {
     
-    STSettingsTVCell *cell = (STSettingsTVCell *)slider.superview.superview;
+    STSettingsTVCell *cell = [self cellForView:slider];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSString *settingName = [self settingNameForIndexPath:indexPath];
     double step = [[self stepForIndexPath:indexPath] doubleValue];
@@ -348,19 +360,26 @@
     }
     
     NSString *value = [NSString stringWithFormat:@"%f", slider.value];
+
     if ([settingName isEqualToString:@"desiredAccuracy"]) {
         value = [self desiredAccuracyValueFrom:rint(slider.value)];
     }
+    
     cell.detailTextLabel.text = [self formatValue:value forSettingName:settingName];
+
 }
 
 - (void)sliderValueChangeFinished:(UISlider *)slider {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(STSettingsTVCell *)slider.superview.superview];
+    
+    STSettingsTVCell *cell = [self cellForView:slider];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSString *settingName = [self settingNameForIndexPath:indexPath];
     NSString *value = [NSString stringWithFormat:@"%f", slider.value];
+    
     if ([settingName isEqualToString:@"desiredAccuracy"]) {
         value = [self desiredAccuracyValueFrom:rint(slider.value)];
     }
+    
     NSString *groupName = [[self groupNames] objectAtIndex:indexPath.section];
     [self.session.settingsController setNewSettings:[NSDictionary dictionaryWithObjectsAndKeys:value, settingName, nil] forGroup:groupName];
 
@@ -377,38 +396,46 @@
 }
 
 - (void)switchValueChanged:(UISwitch *)senderSwitch {
-    STSettingsTVCell *cell = (STSettingsTVCell *)senderSwitch.superview.superview;
+    
+    STSettingsTVCell *cell = [self cellForView:senderSwitch];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSString *settingName = [self settingNameForIndexPath:indexPath];
     NSString *value = [NSString stringWithFormat:@"%d", senderSwitch.on];
     NSString *groupName = [[self groupNames] objectAtIndex:indexPath.section];
     [self.session.settingsController setNewSettings:[NSDictionary dictionaryWithObjectsAndKeys:value, settingName, nil] forGroup:groupName];
+    
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    STSettingsTVCell *cell = (STSettingsTVCell *)segmentedControl.superview.superview;
+    
+    STSettingsTVCell *cell = [self cellForView:segmentedControl];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSString *settingName = [self settingNameForIndexPath:indexPath];
     NSString *value = [NSString stringWithFormat:@"%ld", (long)segmentedControl.selectedSegmentIndex];
     NSString *groupName = [[self groupNames] objectAtIndex:indexPath.section];
     [self.session.settingsController setNewSettings:[NSDictionary dictionaryWithObjectsAndKeys:value, settingName, nil] forGroup:groupName];
+    
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     [textField resignFirstResponder];
     return YES;
+    
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    STSettingsTVCell *cell = (STSettingsTVCell *)textField.superview.superview;
+    
+    STSettingsTVCell *cell = [self cellForView:textField];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSString *settingName = [self settingNameForIndexPath:indexPath];
     NSString *groupName = [[self groupNames] objectAtIndex:indexPath.section];
     textField.text = [self.session.settingsController setNewSettings:[NSDictionary dictionaryWithObjectsAndKeys:textField.text, settingName, nil] forGroup:groupName];
 
     return YES;
+    
 }
 
 #pragma mark - view lifecycle
