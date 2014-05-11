@@ -8,6 +8,9 @@
 
 #import "STSessionManager.h"
 #import "STSession.h"
+#import "STSettingsData.h"
+
+#define SETTINGS_SCHEMA @"settings_schema"
 
 @implementation STSessionManager
 
@@ -44,15 +47,20 @@
     
 }
 
-- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings settingsFileName:(NSString *)settingsFileName documentPrefix:(NSString *)prefix {
+- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers startSettings:(NSDictionary *)startSettings defaultSettingsFileName:(NSString *)defualtSettingsFileName documentPrefix:(NSString *)prefix {
     
     if (uid) {
         
         STSession *session = [self.sessions objectForKey:uid];
         
         if (!session) {
-                        
-            session = [STSession initWithUID:uid authDelegate:authDelegate trackers:trackers settings:settings documentPrefix:prefix];
+            
+            NSDictionary *validSettings = [STSettingsData settingsFromFileName:defualtSettingsFileName withSchemaName:@"settings_schema"];
+            
+            session = [STSession initWithUID:uid authDelegate:authDelegate trackers:trackers startSettings:startSettings documentPrefix:prefix];
+            
+            session.defaultSettings = [validSettings objectForKey:@"values"];
+            session.settingsControls = [validSettings objectForKey:@"controls"];
             session.manager = self;
 
             [self.sessions setValue:session forKey:uid];

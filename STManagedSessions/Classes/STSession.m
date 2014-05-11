@@ -16,14 +16,14 @@
 
 @implementation STSession
 
-+(STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
++(STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers startSettings:(NSDictionary *)startSettings documentPrefix:(NSString *)prefix {
     
     if (uid) {
         
         STSession *session = [[STSession alloc] init];
         session.status = @"starting";
         session.uid = uid;
-        session.startSettings = settings;
+        session.startSettings = startSettings;
         session.authDelegate = authDelegate;
         session.settingsController = [[STSettingsController alloc] init];
         session.trackers = [NSMutableDictionary dictionary];
@@ -44,7 +44,7 @@
         
         [session addObservers];
 
-        NSString *dataModelName = [settings valueForKey:@"dataModelName"];
+        NSString *dataModelName = [startSettings valueForKey:@"dataModelName"];
         
         if (!dataModelName) {
             dataModelName = @"STDataModel";

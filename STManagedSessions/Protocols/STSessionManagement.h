@@ -24,16 +24,18 @@
 
 @protocol STSession <NSObject>
 
-+ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
++ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers startSettings:(NSDictionary *)startSettings documentPrefix:(NSString *)prefix;
 
 //- (void)completeSession;
 //- (void)dismissSession;
 //- (void)settingsLoadComplete;
 
-@property (strong, nonatomic) UIManagedDocument *document;
+@property (nonatomic, strong) UIManagedDocument *document;
 @property (nonatomic, strong) NSString *uid;
-@property (strong, nonatomic) NSString *status;
+@property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) id <STSettingsController> settingsController;
+@property (nonatomic, strong) NSDictionary *settingsControls;
+@property (nonatomic, strong) NSDictionary *defaultSettings;
 
 @end
 
@@ -41,7 +43,7 @@
 
 @protocol STSessionManager <NSObject>
 
-- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers settings:(NSDictionary *)settings settingsFileName:(NSString *)settingsFileName documentPrefix:(NSString *)prefix;
+- (id <STSession>)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers startSettings:(NSDictionary *)startSettings defaultSettingsFileName:(NSString *)defualtSettingsFileName documentPrefix:(NSString *)prefix;
 - (void)stopSessionForUID:(NSString *)uid;
 - (void)sessionStopped:(id)session;
 - (void)cleanStoppedSessions;

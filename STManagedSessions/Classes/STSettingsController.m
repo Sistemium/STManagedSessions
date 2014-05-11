@@ -30,7 +30,7 @@
 
 - (NSDictionary *)defaultSettings {
     
-    return [STSettingsData defaultSettings];
+    return  self.session.defaultSettings;
     
 }
 

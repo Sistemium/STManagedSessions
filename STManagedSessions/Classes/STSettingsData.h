@@ -13,4 +13,6 @@
 + (NSDictionary *)defaultSettings;
 + (NSDictionary *)controlsSettings;
 
++ (NSDictionary *)settingsFromFileName:(NSString *)settingsFileName withSchemaName:(NSString *)schemaName;
+
 @end

@@ -8,9 +8,83 @@
 
 #import "STSettingsData.h"
 #import <CoreLocation/CoreLocation.h>
+#import <KiteJSONValidator/KiteJSONValidator.h>
 
 @implementation STSettingsData
 
++ (NSDictionary *)settingsFromFileName:(NSString *)settingsFileName withSchemaName:(NSString *)schemaName {
+    
+    NSString *schemaPath = [[NSBundle mainBundle] pathForResource:schemaName ofType:@"json"];
+    NSData *schemaData = [NSData dataWithContentsOfFile:schemaPath];
+    
+    NSString *settingsPath = [[NSBundle mainBundle] pathForResource:settingsFileName ofType:@"json"];
+    NSData *settingsData = [NSData dataWithContentsOfFile:settingsPath];
+    
+    KiteJSONValidator *JSONValidator = [[KiteJSONValidator alloc] init];
+
+    if ([JSONValidator validateJSONData:settingsData withSchemaData:schemaData]) {
+        
+        NSMutableDictionary *settingsValues = [NSMutableDictionary dictionary];
+        NSMutableDictionary *settingsControls = [NSMutableDictionary dictionary];
+        
+        NSError *error;
+        NSDictionary *settingsJSON = [NSJSONSerialization JSONObjectWithData:settingsData options:NSJSONReadingMutableContainers error:&error];
+        
+        for (NSDictionary *group in [settingsJSON objectForKey:@"defaultSettings"]) {
+            
+            NSString *groupName = [group valueForKey:@"group"];
+            
+            NSMutableDictionary *settingsValuesGroup = [NSMutableDictionary dictionary];
+            NSMutableArray *settingsControlsGroup = [NSMutableArray array];
+            
+            for (NSDictionary *settingItem in [group valueForKey:@"data"]) {
+                
+                NSString *itemName = [settingItem valueForKey:@"name"];
+                id itemValue = [settingItem valueForKey:@"value"];
+                
+                itemValue = [itemValue isKindOfClass:[NSString class]] ? itemValue : [itemValue stringValue];
+                
+                [settingsValuesGroup setValue:itemValue forKey:itemName];
+                
+                NSString *itemConrtolType = [settingItem valueForKey:@"control"];
+                
+                if (itemConrtolType) {
+                    
+                    NSString *itemMinValue = [[settingItem valueForKey:@"min"] stringValue];
+                    NSString *itemMaxValue = [[settingItem valueForKey:@"max"] stringValue];
+                    NSString *itemStepValue = [[settingItem valueForKey:@"step"] stringValue];
+                    
+                    itemMinValue = itemMinValue ? itemMinValue : @"";
+                    itemMaxValue = itemMaxValue ? itemMaxValue : @"";
+                    itemStepValue = itemStepValue ? itemStepValue : @"";
+                    
+                    [settingsControlsGroup addObject:@[itemConrtolType, itemMinValue, itemMaxValue, itemStepValue, itemName]];
+                    
+                    NSLog(@"%@", itemName);
+
+                }
+                
+            }
+
+            if (settingsValuesGroup.count > 0) {
+                [settingsValues setObject:settingsValuesGroup forKey:groupName];
+            }
+            if (settingsControlsGroup.count > 0) {
+                [settingsControls setObject:settingsControlsGroup forKey:groupName];
+            }
+            
+        }
+        
+        return [NSDictionary dictionaryWithObjectsAndKeys:settingsValues, @"values", settingsControls, @"controls", nil];
+        
+    } else {
+        
+        NSLog(@"settingsData not confirm schema");
+        return nil;
+        
+    }
+
+}
 
 + (NSDictionary *)defaultSettings {
     NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionary];

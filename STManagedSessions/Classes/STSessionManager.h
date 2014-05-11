@@ -20,8 +20,8 @@
 - (id <STSession>)startSessionForUID:(NSString *)uid
                         authDelegate:(id <STRequestAuthenticatable>)authDelegate
                             trackers:(NSArray *)trackers
-                            settings:(NSDictionary *)settings
-                    settingsFileName:(NSString *)settingsFileName
+                            startSettings:(NSDictionary *)startSettings
+                    defaultSettingsFileName:(NSString *)defaultSettingsFileName
                       documentPrefix:(NSString *)prefix;
 
 - (void)stopSessionForUID:(NSString *)uid;

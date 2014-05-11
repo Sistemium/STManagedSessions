@@ -56,16 +56,16 @@
 
 #pragma mark - STGTSettingsTableViewController
 
-+ (NSDictionary *)controlsSettings {
-
-    return [STSettingsData controlsSettings];
-
-}
+//+ (NSDictionary *)controlsSettings {
+//
+//    return self.session.controlsSettings;
+//
+//}
 
 
 - (NSDictionary *)controlsSettings {
     if (!_controlsSettings) {
-        _controlsSettings = [STSettingsTVC controlsSettings];
+        _controlsSettings = self.session.settingsControls;
     }
     return _controlsSettings;
 }

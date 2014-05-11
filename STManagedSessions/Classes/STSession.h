@@ -27,12 +27,14 @@
 @property (nonatomic, strong) STLocationTracker *locationTracker;
 @property (nonatomic, strong) STBatteryTracker *batteryTracker;
 @property (nonatomic, strong) NSMutableDictionary *trackers;
+@property (nonatomic, strong) NSDictionary *settingsControls;
+@property (nonatomic, strong) NSDictionary *defaultSettings;
 
 
 + (STSession *)initWithUID:(NSString *)uid
               authDelegate:(id <STRequestAuthenticatable>)authDelegate
-               trackers:(NSArray *)trackers
-                  settings:(NSDictionary *)settings
+                  trackers:(NSArray *)trackers
+             startSettings:(NSDictionary *)startSettings
             documentPrefix:(NSString *)prefix;
 
 - (void)stopSession;
