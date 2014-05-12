@@ -2,7 +2,7 @@
 //  STLocation.h
 //  STManagedSessions
 //
-//  Created by Maxim Grigoriev on 06/05/14.
+//  Created by Maxim Grigoriev on 12/05/14.
 //  Copyright (c) 2014 Sistemium UAB. All rights reserved.
 //
 
@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "STComment.h"
 
+@class STTrack;
 
 @interface STLocation : STComment
 
@@ -21,5 +22,6 @@
 @property (nonatomic, retain) NSNumber * speed;
 @property (nonatomic, retain) NSDate * timestamp;
 @property (nonatomic, retain) NSNumber * verticalAccuracy;
+@property (nonatomic, retain) STTrack *track;
 
 @end
