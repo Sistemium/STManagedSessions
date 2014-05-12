@@ -17,10 +17,36 @@
 @interface STViewController ()
 
 @property (nonatomic, strong) STSessionManager *sessionManager;
+@property (nonatomic, strong) id <STSession> session;
+@property (weak, nonatomic) IBOutlet UIButton *logButton;
+@property (weak, nonatomic) IBOutlet UIButton *locationButton;
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 
 @end
 
 @implementation STViewController
+
+- (IBAction)logButtonPressed:(id)sender {
+    
+    UITableViewController *logTVC = [[UITableViewController alloc] init];
+    logTVC.tableView.delegate = self.session.logger;
+    logTVC.tableView.dataSource = self.session.logger;
+    self.session.logger.tableView = logTVC.tableView;
+    [self.navigationController pushViewController:logTVC animated:YES];
+
+}
+
+- (IBAction)locationButtonPressed:(id)sender {
+}
+
+- (IBAction)settingsButtonPressed:(id)sender {
+    
+    STSettingsTVC *settingsTVC = [[STSettingsTVC alloc] init];
+    settingsTVC.session = self.session;
+    [self.navigationController pushViewController:settingsTVC animated:YES];
+    
+}
+
 
 - (STSessionManager *)sessionManager {
     
@@ -38,11 +64,10 @@
         
         id <STSession> session = notification.object;
         
-        if ([session.uid isEqualToString:UID]) {
+        if ([session.uid isEqualToString:UID] && [session.status isEqualToString:@"running"]) {
             
-            STSettingsTVC *settingsTVC = [[STSettingsTVC alloc] init];
-            settingsTVC.session = session;
-            [self.navigationController pushViewController:settingsTVC animated:YES];
+            self.session = session;
+            [self enableButtons];
             
         }
         
@@ -50,7 +75,19 @@
     
 }
 
+- (void)enableButtons {
+    
+    self.logButton.enabled = YES;
+    self.locationButton.enabled = YES;
+    self.settingsButton.enabled = YES;
+
+}
+
 - (void)customInit {
+    
+    self.logButton.enabled = NO;
+    self.locationButton.enabled = NO;
+    self.settingsButton.enabled = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStatusChanged:) name:@"sessionStatusChanged" object:nil];
 

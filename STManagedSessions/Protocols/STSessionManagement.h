@@ -7,9 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "STManagedDocument.h"
 #import "STRequestAuthenticatable.h"
 
+@protocol STLogger <NSObject, UITableViewDataSource, UITableViewDelegate>
+
+- (void)saveLogMessageWithText:(NSString *)text type:(NSString *)type;
+
+@property (nonatomic, weak) UITableView *tableView;
+
+@end
 
 
 @protocol STSettingsController <NSObject>
@@ -26,16 +32,13 @@
 
 + (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSArray *)trackers startSettings:(NSDictionary *)startSettings documentPrefix:(NSString *)prefix;
 
-//- (void)completeSession;
-//- (void)dismissSession;
-//- (void)settingsLoadComplete;
-
 @property (nonatomic, strong) UIManagedDocument *document;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) id <STSettingsController> settingsController;
 @property (nonatomic, strong) NSDictionary *settingsControls;
 @property (nonatomic, strong) NSDictionary *defaultSettings;
+@property (nonatomic, strong) id <STLogger> logger;
 
 @end
 
